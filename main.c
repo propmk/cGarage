@@ -23,12 +23,18 @@
 
 void mainHeader(void);
 void mainMenu(void);
-void loginMenu(void);
 void registerMenu(void);
+void registerAsAdmin(void);
+void registerAsTechnician(void);
+void registerMenuHelp(void);
+void loginMenu(void);
+void loginAsAdmin(void);
+void loginAsTechnician(void);
+void loginAsGuest(void);
+void loginMenuHelp(void);
 
 int main(void) {
 
-    mainHeader();
     mainMenu();
     
 
@@ -55,6 +61,9 @@ void mainHeader(void) {
 }
 
 void mainMenu(void) {
+    printf(CLEAR_SCREEN);
+    mainHeader();
+    
     printf(GREEN "[" YELLOW "1" GREEN "] Register\n" RESET);
     printf(GREEN "[" YELLOW "2" GREEN "] Login\n" RESET);
     printf(GREEN "[" YELLOW "3" GREEN "] Exit\n" RESET);
@@ -78,6 +87,63 @@ void mainMenu(void) {
     }
 }
 
+void registerMenu(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+---------------+\n" RESET);
+    printf(BLUE "| Register Menu |\n" RESET);
+    printf(BLUE "+---------------+\n" RESET);
+    printf(GREEN "[" YELLOW "1" GREEN "] Admin\n" RESET);
+    printf(GREEN "[" YELLOW "2" GREEN "] Technician\n" RESET);
+    printf(GREEN "[" YELLOW "3" GREEN "] Help\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Return to Main Menu\n" RESET);
+    printf(YELLOW "Enter your choice: " RESET);
+
+    int choice;
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            registerAsAdmin();
+            break;
+        case 2:
+            registerAsTechnician();
+            break;
+        case 3:
+            registerMenuHelp();
+            break;
+        case 4:
+            mainMenu();
+            break;
+        default:
+            printf(RED "Invalid choice. Please try again.\n" RESET);
+            registerMenu();
+    }
+}
+
+void registerAsAdmin(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+--------------------+\n" RESET);
+    printf(BLUE "| Admin Registration |\n" RESET);
+    printf(BLUE "+--------------------+\n" RESET);
+}
+
+void registerAsTechnician(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+-------------------------+\n" RESET);
+    printf(BLUE "| Technician Registration |\n" RESET);
+    printf(BLUE "+-------------------------+\n" RESET);
+}
+
+void registerMenuHelp(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+---------------------+\n" RESET);
+    printf(BLUE "| Register Menu Help  |\n" RESET);
+    printf(BLUE "+---------------------+\n" RESET);
+    printf(GREEN "1. Admin: Register as an administrator.\n" RESET);
+    printf(GREEN "2. Technician: Register as a technician.\n" RESET);
+    printf(GREEN "3. Help: Shows this menu.\n" RESET);
+    printf(GREEN "4. Return to Main Menu.\n" RESET);
+}
+
 void loginMenu(void) {
     printf(CLEAR_SCREEN);
     printf(BLUE "+------------+\n" RESET);
@@ -86,17 +152,64 @@ void loginMenu(void) {
     printf(GREEN "[" YELLOW "1" GREEN "] Admin\n" RESET);
     printf(GREEN "[" YELLOW "2" GREEN "] Technician\n" RESET);
     printf(GREEN "[" YELLOW "3" GREEN "] Guest\n" RESET);
-    printf(GREEN "[" YELLOW "3" GREEN "] Login Menu Help\n" RESET);
-    printf(GREEN "[" YELLOW "4" GREEN "] Back to Main Menu\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Help\n" RESET);
+    printf(GREEN "[" YELLOW "5" GREEN "] Return to Main Menu\n" RESET);
+    printf(YELLOW "Enter your choice: " RESET);
+
+    int choice;
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            loginAsAdmin();
+            break;
+        case 2:
+            loginAsTechnician();
+            break;
+        case 3:
+            loginAsGuest();
+            break;
+        case 4:
+            loginMenuHelp();
+            break;
+        case 5:
+            mainMenu();
+            break;
+        default:
+            printf(RED "Invalid choice. Please try again.\n" RESET);
+            loginMenu();
+    }
+
 }
 
-void registerMenu(void) {
+void loginAsAdmin(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+---------------+\n" RESET);
-    printf(BLUE "| Register Menu |\n" RESET);
-    printf(BLUE "+---------------+\n" RESET);
-    printf(GREEN "[" YELLOW "1" GREEN "] Admin\n" RESET);
-    printf(GREEN "[" YELLOW "2" GREEN "] Technician\n" RESET);
-    printf(GREEN "[" YELLOW "3" GREEN "] Register Menu Help\n" RESET);
-    printf(GREEN "[" YELLOW "4" GREEN "] Back to Main Menu\n" RESET);
+    printf(BLUE "+-------------+\n" RESET);
+    printf(BLUE "| Admin Login |\n" RESET);
+    printf(BLUE "+-------------+\n" RESET);
+}
+
+void loginAsTechnician(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+------------------+\n" RESET);
+    printf(BLUE "| Technician Login |\n" RESET);
+    printf(BLUE "+------------------+\n" RESET);
+}
+
+void loginAsGuest(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+-------------+\n" RESET);
+    printf(BLUE "| Guest Login |\n" RESET);
+    printf(BLUE "+-------------+\n" RESET);
+}
+
+void loginMenuHelp(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+------------------+\n" RESET);
+    printf(BLUE "| Login Menu Help  |\n" RESET);
+    printf(BLUE "+------------------+\n" RESET);
+    printf(GREEN "1. Admin: Login as an administrator.\n" RESET);
+    printf(GREEN "2. Technician: Login as a technician.\n" RESET);
+    printf(GREEN "3. Guest: Login as a guest user.\n" RESET);
+    printf(GREEN "4. Help: Shows this menu.\n" RESET);
+    printf(GREEN "5. Return to Main Menu.\n" RESET);
 }
