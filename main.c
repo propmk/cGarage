@@ -32,6 +32,7 @@ void loginAsAdmin(void);
 void loginAsTechnician(void);
 void loginAsGuest(void);
 void loginMenuHelp(void);
+void aboutApp(void);
 
 int main(void) {
 
@@ -66,7 +67,8 @@ void mainMenu(void) {
     
     printf(GREEN "[" YELLOW "1" GREEN "] Register\n" RESET);
     printf(GREEN "[" YELLOW "2" GREEN "] Login\n" RESET);
-    printf(GREEN "[" YELLOW "3" GREEN "] Exit\n" RESET);
+    printf(GREEN "[" YELLOW "3" GREEN "] About\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Exit\n" RESET);
     printf(YELLOW "Enter your choice: " RESET);
 
     int choice;
@@ -79,6 +81,9 @@ void mainMenu(void) {
             loginMenu();
             break;
         case 3:
+            aboutApp();
+            break;
+        case 4:
             printf(GREEN "Exiting the system. Goodbye!\n" RESET);
             exit(0);
         default:
@@ -124,6 +129,8 @@ void registerAsAdmin(void) {
     printf(BLUE "+--------------------+\n" RESET);
     printf(BLUE "| Admin Registration |\n" RESET);
     printf(BLUE "+--------------------+\n" RESET);
+
+    getchar(); 
 }
 
 void registerAsTechnician(void) {
@@ -131,6 +138,8 @@ void registerAsTechnician(void) {
     printf(BLUE "+-------------------------+\n" RESET);
     printf(BLUE "| Technician Registration |\n" RESET);
     printf(BLUE "+-------------------------+\n" RESET);
+
+    getchar();
 }
 
 void registerMenuHelp(void) {
@@ -142,6 +151,8 @@ void registerMenuHelp(void) {
     printf(GREEN "2. Technician: Register as a technician.\n" RESET);
     printf(GREEN "3. Help: Shows this menu.\n" RESET);
     printf(GREEN "4. Return to Main Menu.\n" RESET);
+
+    getchar();
 }
 
 void loginMenu(void) {
@@ -186,6 +197,8 @@ void loginAsAdmin(void) {
     printf(BLUE "+-------------+\n" RESET);
     printf(BLUE "| Admin Login |\n" RESET);
     printf(BLUE "+-------------+\n" RESET);
+
+    getchar();
 }
 
 void loginAsTechnician(void) {
@@ -193,6 +206,8 @@ void loginAsTechnician(void) {
     printf(BLUE "+------------------+\n" RESET);
     printf(BLUE "| Technician Login |\n" RESET);
     printf(BLUE "+------------------+\n" RESET);
+
+    getchar();
 }
 
 void loginAsGuest(void) {
@@ -200,6 +215,8 @@ void loginAsGuest(void) {
     printf(BLUE "+-------------+\n" RESET);
     printf(BLUE "| Guest Login |\n" RESET);
     printf(BLUE "+-------------+\n" RESET);
+
+    getchar();
 }
 
 void loginMenuHelp(void) {
@@ -212,4 +229,18 @@ void loginMenuHelp(void) {
     printf(GREEN "3. Guest: Login as a guest user.\n" RESET);
     printf(GREEN "4. Help: Shows this menu.\n" RESET);
     printf(GREEN "5. Return to Main Menu.\n" RESET);
+
+    getchar();
+}
+
+void aboutApp(void) {
+    printf(CLEAR_SCREEN);
+    printf(BLUE "+-------+\n" RESET);
+    printf(BLUE "| About |\n" RESET);
+    printf(BLUE "+-------+\n" RESET);
+    printf(GREEN "Garage Service Management System\n" RESET);
+    printf(GREEN "Version: 0.0.0\n" RESET);
+    printf(GREEN "Github Repository:" CYAN "https://github.com/Propmk/cGarage\n" RESET);
+
+    getchar();
 }
