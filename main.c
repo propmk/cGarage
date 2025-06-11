@@ -1,13 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define BLACK "\033[30m"
+#define BRIGHT_BLACK "\033[90m"
 #define RED "\033[31m"
+#define BRIGHT_RED "\033[91m"
 #define GREEN "\033[32m"
+#define BRIGHT_GREEN "\033[92m"
 #define YELLOW "\033[33m"
+#define BRIGHT_YELLOW "\033[93m"
 #define BLUE "\033[34m"
+#define BRIGHT_BLUE "\033[94m"
 #define MAGENTA "\033[35m"
+#define BRIGHT_MAGENTA "\033[95m"
 #define CYAN "\033[36m"
+#define BRIGHT_CYAN "\033[96m"
 #define WHITE "\033[37m"
+#define BRIGHT_WHITE "\033[97m"
 #define RESET "\033[0m"
 #define BOLD "\033[1m"
 #define UNDERLINE "\033[4m"
@@ -49,7 +58,7 @@ int main(void) {
 }
 
 void mainHeader(void) {
-    SET_COLOR(BLUE);
+    SET_COLOR(BRIGHT_BLUE);
     printf("+----------------------------------------------------+\n");
     printf("|   ____            ____                             |\n");
     printf("|  / ___|          / ___| __ _ _ __ __ _  __ _  ___  |\n");
@@ -94,9 +103,9 @@ void mainMenu(void) {
 
 void registerMenu(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+---------------+\n" RESET);
-    printf(BLUE "| Register Menu |\n" RESET);
-    printf(BLUE "+---------------+\n" RESET);
+    printf(BRIGHT_BLUE "+---------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Register Menu |\n" RESET);
+    printf(BRIGHT_BLUE "+---------------+\n" RESET);
     printf(GREEN "[" YELLOW "1" GREEN "] Admin\n" RESET);
     printf(GREEN "[" YELLOW "2" GREEN "] Technician\n" RESET);
     printf(GREEN "[" YELLOW "3" GREEN "] Help\n" RESET);
@@ -126,27 +135,27 @@ void registerMenu(void) {
 
 void registerAsAdmin(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+--------------------+\n" RESET);
-    printf(BLUE "| Admin Registration |\n" RESET);
-    printf(BLUE "+--------------------+\n" RESET);
+    printf(BRIGHT_BLUE "+--------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Admin Registration |\n" RESET);
+    printf(BRIGHT_BLUE "+--------------------+\n" RESET);
 
     getchar(); 
 }
 
 void registerAsTechnician(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+-------------------------+\n" RESET);
-    printf(BLUE "| Technician Registration |\n" RESET);
-    printf(BLUE "+-------------------------+\n" RESET);
+    printf(BRIGHT_BLUE "+-------------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Technician Registration |\n" RESET);
+    printf(BRIGHT_BLUE "+-------------------------+\n" RESET);
 
     getchar();
 }
 
 void registerMenuHelp(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+---------------------+\n" RESET);
-    printf(BLUE "| Register Menu Help  |\n" RESET);
-    printf(BLUE "+---------------------+\n" RESET);
+    printf(BRIGHT_BLUE "+----------------------+\n" RESET);
+    printf(BRIGHT_BLUE "|  Register Menu Help  |\n" RESET);
+    printf(BRIGHT_BLUE "+----------------------+\n" RESET);
     printf(GREEN "1. Admin: Register as an administrator.\n" RESET);
     printf(GREEN "2. Technician: Register as a technician.\n" RESET);
     printf(GREEN "3. Help: Shows this menu.\n" RESET);
@@ -157,9 +166,9 @@ void registerMenuHelp(void) {
 
 void loginMenu(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+------------+\n" RESET);
-    printf(BLUE "| Login Menu |\n" RESET);
-    printf(BLUE "+------------+\n" RESET);
+    printf(BRIGHT_BLUE "+------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Login Menu |\n" RESET);
+    printf(BRIGHT_BLUE "+------------+\n" RESET);
     printf(GREEN "[" YELLOW "1" GREEN "] Admin\n" RESET);
     printf(GREEN "[" YELLOW "2" GREEN "] Technician\n" RESET);
     printf(GREEN "[" YELLOW "3" GREEN "] Guest\n" RESET);
@@ -194,36 +203,36 @@ void loginMenu(void) {
 
 void loginAsAdmin(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+-------------+\n" RESET);
-    printf(BLUE "| Admin Login |\n" RESET);
-    printf(BLUE "+-------------+\n" RESET);
+    printf(BRIGHT_BLUE "+-------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Admin Login |\n" RESET);
+    printf(BRIGHT_BLUE "+-------------+\n" RESET);
 
     getchar();
 }
 
 void loginAsTechnician(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+------------------+\n" RESET);
-    printf(BLUE "| Technician Login |\n" RESET);
-    printf(BLUE "+------------------+\n" RESET);
+    printf(BRIGHT_BLUE "+------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Technician Login |\n" RESET);
+    printf(BRIGHT_BLUE "+------------------+\n" RESET);
 
     getchar();
 }
 
 void loginAsGuest(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+-------------+\n" RESET);
-    printf(BLUE "| Guest Login |\n" RESET);
-    printf(BLUE "+-------------+\n" RESET);
+    printf(BRIGHT_BLUE "+-------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Guest Login |\n" RESET);
+    printf(BRIGHT_BLUE "+-------------+\n" RESET);
 
     getchar();
 }
 
 void loginMenuHelp(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+------------------+\n" RESET);
-    printf(BLUE "| Login Menu Help  |\n" RESET);
-    printf(BLUE "+------------------+\n" RESET);
+    printf(BRIGHT_BLUE "+------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Login Menu Help  |\n" RESET);
+    printf(BRIGHT_BLUE "+------------------+\n" RESET);
     printf(GREEN "1. Admin: Login as an administrator.\n" RESET);
     printf(GREEN "2. Technician: Login as a technician.\n" RESET);
     printf(GREEN "3. Guest: Login as a guest user.\n" RESET);
@@ -235,12 +244,16 @@ void loginMenuHelp(void) {
 
 void aboutApp(void) {
     printf(CLEAR_SCREEN);
-    printf(BLUE "+-------+\n" RESET);
-    printf(BLUE "| About |\n" RESET);
-    printf(BLUE "+-------+\n" RESET);
-    printf(GREEN "Garage Service Management System\n" RESET);
-    printf(GREEN "Version: 0.0.0\n" RESET);
-    printf(GREEN "Github Repository:" CYAN "https://github.com/Propmk/cGarage\n" RESET);
+    mainHeader();
 
+    printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
+    printf(BRIGHT_BLUE "|                                                    |\n" RESET);
+    printf(BRIGHT_BLUE "|" GREEN "  Garage Service Management System                  " BRIGHT_BLUE "|\n" RESET);
+    printf(BRIGHT_BLUE "|" GREEN "  Version: 0.0.0                                    " BRIGHT_BLUE "|\n" RESET);
+    printf(BRIGHT_BLUE "|" GREEN "  License: GPLv3                                    " BRIGHT_BLUE "|\n" RESET);
+    printf(BRIGHT_BLUE "|" GREEN "  Github Repo: " CYAN "https://github.com/Propmk/cGarage    " BRIGHT_BLUE "|\n" RESET);
+    printf(BRIGHT_BLUE "|                                                    |\n" RESET);
+    printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
+    
     getchar();
 }
