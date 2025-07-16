@@ -11,6 +11,10 @@
 *.ico
 *.rc
 
+# Database files
+*.csv
+
+
 # Linker output
 *.ilk
 *.map
