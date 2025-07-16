@@ -187,8 +187,8 @@ void loginMenu(void) {
     printf(BRIGHT_BLUE "+------------+\n" RESET);
     printf(GREEN "[" YELLOW "1" GREEN "] Admin\n" RESET);
     printf(GREEN "[" YELLOW "2" GREEN "] Technician\n" RESET);
-    printf(GREEN "[" YELLOW "3" GREEN "] Guest\n" RESET);
-    printf(GREEN "[" YELLOW "4" GREEN "] Customer Service Agent\n" RESET);
+    printf(GREEN "[" YELLOW "3" GREEN "] Customer Service Agent\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Guest\n" RESET);
     printf(GREEN "[" YELLOW "5" GREEN "] Help\n" RESET);
     printf(GREEN "[" YELLOW "6" GREEN "] Return to Main Menu\n" RESET);
     printf(YELLOW "Enter your choice: " RESET);
