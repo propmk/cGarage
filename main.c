@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define BLACK "\033[30m"
 #define BRIGHT_BLACK "\033[90m"
@@ -29,6 +30,14 @@
 #define SHOW_CURSOR "\033[?25h"
 #define SET_COLOR(color) printf("%s", color)
 #define RESET_COLOR() printf(RESET)
+
+typedef struct {
+    char name[50];
+    char email[50];
+    char phone[15];
+    char dateOfBirth[11];
+    char password[50];
+} Employee;
 
 void mainHeader(void);
 void mainMenu(void);
@@ -144,6 +153,48 @@ void registerAsAdmin(void) {
     printf(BRIGHT_BLUE "+--------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Admin Registration |\n" RESET);
     printf(BRIGHT_BLUE "+--------------------+\n" RESET);
+
+    printf(GREEN "Enter your details:\n" RESET);
+    Employee admin;
+    printf(YELLOW "Name: " RESET);
+    getchar();
+    fgets(admin.name, sizeof(admin.name), stdin);
+    printf(YELLOW "Email: " RESET);
+    fgets(admin.email, sizeof(admin.email), stdin);
+    printf(YELLOW "Phone: " RESET);
+    fgets(admin.phone, sizeof(admin.phone), stdin);
+    printf(YELLOW "Date of Birth (YYYY-MM-DD): " RESET);
+    fgets(admin.dateOfBirth, sizeof(admin.dateOfBirth), stdin);
+    printf(YELLOW "Password: " RESET);
+    getchar();
+    fgets(admin.password, sizeof(admin.password), stdin);
+    
+    admin.name[strcspn(admin.name, "\n")] = '\0';
+    admin.email[strcspn(admin.email, "\n")] = '\0';
+    admin.phone[strcspn(admin.phone, "\n")] = '\0';
+    admin.dateOfBirth[strcspn(admin.dateOfBirth, "\n")] = '\0';
+    admin.password[strcspn(admin.password, "\n")] = '\0';
+    
+    printf(GREEN "Registration successful for Admin: %s\n" RESET, admin.name);
+
+    FILE *adminDb = fopen("admins.csv", "r");
+    if (adminDb == NULL) {
+        adminDb = fopen("admins.csv", "w");
+        fprintf(adminDb, "Name,Email,Phone,Date Of Birth,Password\n");
+        fprintf(adminDb, "%s,%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth, admin.password);
+        fclose(adminDb);   
+    } 
+
+    else {
+        fclose(adminDb);
+        adminDb = fopen("admins.csv", "a");
+        fprintf(adminDb, "%s,%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth, admin.password);
+        fclose(adminDb);
+    }
+
+
+    
+
 
     getchar(); 
 }
