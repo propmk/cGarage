@@ -24,12 +24,17 @@
 #define BLINK "\033[5m"
 #define REVERSE "\033[7m"
 #define HIGHLIGHT "\033[7m"
-#define CLEAR_SCREEN "\033[2J\033[H"
 #define CLEAR_LINE "\033[K"
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
 #define SET_COLOR(color) printf("%s", color)
 #define RESET_COLOR() printf(RESET)
+
+#ifdef _WIN32
+    #define CLEAR_SCREEN "cls"
+#else
+    #define CLEAR_SCREEN "clear"
+#endif
 
 typedef struct {
     char name[50];
@@ -82,7 +87,7 @@ void mainHeader(void) {
 }
 
 void mainMenu(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     mainHeader();
     
     printf(GREEN "[" YELLOW "1" GREEN "] Register\n" RESET);
@@ -108,12 +113,13 @@ void mainMenu(void) {
             exit(0);
         default:
             printf(RED "Invalid choice. Please try again.\n" RESET);
+            while (getchar() != '\n');
             mainMenu();
     }
 }
 
 void registerMenu(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+---------------+\n" RESET);
     printf(BRIGHT_BLUE "| Register Menu |\n" RESET);
     printf(BRIGHT_BLUE "+---------------+\n" RESET);
@@ -149,7 +155,7 @@ void registerMenu(void) {
 }
 
 void registerAsAdmin(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+--------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Admin Registration |\n" RESET);
     printf(BRIGHT_BLUE "+--------------------+\n" RESET);
@@ -200,7 +206,7 @@ void registerAsAdmin(void) {
 }
 
 void registerAsTechnician(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+-------------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Technician Registration |\n" RESET);
     printf(BRIGHT_BLUE "+-------------------------+\n" RESET);
@@ -209,7 +215,7 @@ void registerAsTechnician(void) {
 }
 
 void registerAsCustomerServiceAgent(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+-------------------------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Customer Service Agent Registration |\n" RESET);
     printf(BRIGHT_BLUE "+-------------------------------------+\n" RESET);
@@ -218,7 +224,7 @@ void registerAsCustomerServiceAgent(void) {
 }
 
 void registerMenuHelp(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+----------------------+\n" RESET);
     printf(BRIGHT_BLUE "|  Register Menu Help  |\n" RESET);
     printf(BRIGHT_BLUE "+----------------------+\n" RESET);
@@ -232,7 +238,7 @@ void registerMenuHelp(void) {
 }
 
 void loginMenu(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+------------+\n" RESET);
     printf(BRIGHT_BLUE "| Login Menu |\n" RESET);
     printf(BRIGHT_BLUE "+------------+\n" RESET);
@@ -273,7 +279,7 @@ void loginMenu(void) {
 }
 
 void loginAsAdmin(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+-------------+\n" RESET);
     printf(BRIGHT_BLUE "| Admin Login |\n" RESET);
     printf(BRIGHT_BLUE "+-------------+\n" RESET);
@@ -282,7 +288,7 @@ void loginAsAdmin(void) {
 }
 
 void loginAsTechnician(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Technician Login |\n" RESET);
     printf(BRIGHT_BLUE "+------------------+\n" RESET);
@@ -291,7 +297,7 @@ void loginAsTechnician(void) {
 }
 
 void loginAsCustomerServiceAgent(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+------------------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Customer Service Agent Login |\n" RESET);
     printf(BRIGHT_BLUE "+------------------------------+\n" RESET);
@@ -300,7 +306,7 @@ void loginAsCustomerServiceAgent(void) {
 }
 
 void loginAsGuest(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+-------------+\n" RESET);
     printf(BRIGHT_BLUE "| Guest Login |\n" RESET);
     printf(BRIGHT_BLUE "+-------------+\n" RESET);
@@ -309,7 +315,7 @@ void loginAsGuest(void) {
 }
 
 void loginMenuHelp(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Login Menu Help  |\n" RESET);
     printf(BRIGHT_BLUE "+------------------+\n" RESET);
@@ -324,7 +330,7 @@ void loginMenuHelp(void) {
 }
 
 void aboutApp(void) {
-    printf(CLEAR_SCREEN);
+    system(CLEAR_SCREEN);
     mainHeader();
 
     printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
