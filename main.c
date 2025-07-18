@@ -107,6 +107,7 @@ void mainMenu(void) {
             printf(GREEN "Exiting the system. Goodbye!\n" RESET);
             exit(0);
         default:
+            getchar();
             printf(RED "Invalid choice. Please try again.\n" RESET);
             mainMenu();
     }
@@ -143,6 +144,7 @@ void registerMenu(void) {
             mainMenu();
             break;
         default:
+            getchar();
             printf(RED "Invalid choice. Please try again.\n" RESET);
             registerMenu();
     }
@@ -266,6 +268,7 @@ void loginMenu(void) {
             mainMenu();
             break;
         default:
+            getchar();
             printf(RED "Invalid choice. Please try again.\n" RESET);
             loginMenu();
     }
