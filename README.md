@@ -25,4 +25,3 @@ A standalone console-based **garage service management system** written in C. It
 
 ```bash
 git clone https://github.com/your-username/cGarage.git
-cd cGarage
