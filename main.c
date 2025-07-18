@@ -22,7 +22,6 @@
 #define BOLD "\033[1m"
 #define UNDERLINE "\033[4m"
 #define BLINK "\033[5m"
-#define REVERSE "\033[7m"
 #define HIGHLIGHT "\033[7m"
 #define CLEAR_LINE "\033[K"
 #define HIDE_CURSOR "\033[?25l"
