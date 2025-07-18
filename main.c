@@ -57,6 +57,7 @@ void loginAsCustomerServiceAgent(void);
 void loginAsGuest(void);
 void loginMenuHelp(void);
 void aboutApp(void);
+void clearInputBuffer(void);
 
 int main(void) {
 
@@ -111,8 +112,8 @@ void mainMenu(void) {
             printf(GREEN "Exiting the system. Goodbye!\n" RESET);
             exit(0);
         default:
-            printf(RED "Invalid choice. Please try again.\n" RESET);
-            while (getchar() != '\n');
+            printf(RED "Invalid input. Please try again.\n" RESET);
+            clearInputBuffer();
             mainMenu();
     }
 }
@@ -148,7 +149,8 @@ void registerMenu(void) {
             mainMenu();
             break;
         default:
-            printf(RED "Invalid choice. Please try again.\n" RESET);
+            printf(RED "Invalid input. Please try again.\n" RESET);
+            clearInputBuffer();
             registerMenu();
     }
 }
@@ -271,7 +273,8 @@ void loginMenu(void) {
             mainMenu();
             break;
         default:
-            printf(RED "Invalid choice. Please try again.\n" RESET);
+            printf(RED "Invalid input. Please try again.\n" RESET);
+            clearInputBuffer();
             loginMenu();
     }
 
@@ -342,4 +345,8 @@ void aboutApp(void) {
     printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
     
     getchar();
+}
+
+void clearInputBuffer(void) {
+    while (getchar() != '\n');
 }
