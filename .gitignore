@@ -13,6 +13,7 @@
 
 # Database files
 *.csv
+*.pwd
 
 
 # Linker output
