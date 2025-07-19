@@ -26,8 +26,8 @@
 #define CLEAR_LINE "\033[K"
 #define HIDE_CURSOR "\033[?25l"
 #define SHOW_CURSOR "\033[?25h"
-#define SET_COLOR(color) printf("%s", color)
-#define RESET_COLOR() printf(RESET)
+#define SET_STATE(state) printf("%s", state)
+#define RESET_STATE() printf(RESET)
 
 #ifdef _WIN32
     #define CLEAR_SCREEN "cls"
@@ -74,7 +74,7 @@ int main(void) {
 }
 
 void mainHeader(void) {
-    SET_COLOR(BRIGHT_BLUE);
+    SET_STATE(BRIGHT_BLUE);
     printf("+----------------------------------------------------+\n");
     printf("|   ____            ____                             |\n");
     printf("|  / ___|          / ___| __ _ _ __ __ _  __ _  ___  |\n");
@@ -83,7 +83,7 @@ void mainHeader(void) {
     printf("|  \\____|          \\____|\\__,_|_|  \\__,_|\\__, |\\___| |\n");
     printf("|                                        |___/       |\n");
     printf("+----------------------------------------------------+\n");     
-    RESET_COLOR();
+    RESET_STATE();
 }
 
 void mainMenu(void) {
@@ -114,6 +114,9 @@ void mainMenu(void) {
         default:
             printf(RED "Invalid input. Please try again.\n" RESET);
             clearInputBuffer();
+            printf("Press " YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
             mainMenu();
     }
 }
