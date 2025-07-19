@@ -206,7 +206,11 @@ void registerAsAdmin(void) {
     
 
 
-    getchar(); 
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    mainMenu(); 
 }
 
 void registerAsTechnician(void) {
@@ -238,7 +242,11 @@ void registerMenuHelp(void) {
     printf(GREEN "4. Help: Shows this menu.\n" RESET);
     printf(GREEN "5. Return to Main Menu.\n" RESET);
 
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the register menu." HIDE_CURSOR);
     getchar();
+    SET_STATE(SHOW_CURSOR);
+    registerMenu();
 }
 
 void loginMenu(void) {
@@ -331,7 +339,11 @@ void loginMenuHelp(void) {
     printf(GREEN "4. Help: Shows this menu.\n" RESET);
     printf(GREEN "5. Return to Main Menu.\n" RESET);
 
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the login menu." HIDE_CURSOR);
     getchar();
+    SET_STATE(SHOW_CURSOR);
+    loginMenu();
 }
 
 void aboutApp(void) {
@@ -347,7 +359,11 @@ void aboutApp(void) {
     printf(BRIGHT_BLUE "|                                                    |\n" RESET);
     printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
     
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
+    SET_STATE(SHOW_CURSOR);
+    mainMenu();
 }
 
 void clearInputBuffer(void) {
