@@ -302,7 +302,67 @@ void registerAsCustomerServiceAgent(void) {
     printf(BRIGHT_BLUE "| Customer Service Agent Registration |\n" RESET);
     printf(BRIGHT_BLUE "+-------------------------------------+\n" RESET);
 
+    printf(GREEN "Enter your details:\n" RESET);
+    Employee csagent;
+    printf(YELLOW "Name: " RESET);
     getchar();
+    fgets(csagent.name, sizeof(csagent.name), stdin);
+    printf(YELLOW "Email: " RESET);
+    fgets(csagent.email, sizeof(csagent.email), stdin);
+    printf(YELLOW "Phone: " RESET);
+    fgets(csagent.phone, sizeof(csagent.phone), stdin);
+    printf(YELLOW "Date of Birth (YYYY-MM-DD): " RESET);
+    fgets(csagent.dateOfBirth, sizeof(csagent.dateOfBirth), stdin);
+    printf(YELLOW "Password: " RESET);
+    getchar();
+    fgets(csagent.password, sizeof(csagent.password), stdin);
+    
+    csagent.name[strcspn(csagent.name, "\n")] = '\0';
+    csagent.email[strcspn(csagent.email, "\n")] = '\0';
+    csagent.phone[strcspn(csagent.phone, "\n")] = '\0';
+    csagent.dateOfBirth[strcspn(csagent.dateOfBirth, "\n")] = '\0';
+    csagent.password[strcspn(csagent.password, "\n")] = '\0';
+    
+    printf(GREEN "Registration successful for Customer Service Agent: %s\n" RESET, csagent.name);
+
+    FILE *csagentDb = fopen("csagents.csv", "r");
+    if (csagentDb == NULL) {
+        csagentDb = fopen("csagents.csv", "w");
+        fprintf(csagentDb, "Name,Email,Phone,Date Of Birth\n");
+        fprintf(csagentDb, "%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth);
+        fclose(csagentDb);   
+    } 
+
+    else {
+        fclose(csagentDb);
+        csagentDb = fopen("csagents.csv", "a");
+        fprintf(csagentDb, "%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth);
+        fclose(csagentDb);
+    }
+
+    FILE *csagentPwd = fopen("csagents.pwd", "r");
+    if (csagentPwd == NULL) {
+        csagentPwd = fopen("csagents.pwd", "w");
+        fprintf(csagentPwd, "Email,Password\n");
+        fprintf(csagentPwd, "%s,%s\n", csagent.email, csagent.password);
+        fclose(csagentPwd);   
+    } 
+
+    else {
+        fclose(csagentPwd);
+        csagentPwd = fopen("csagents.pwd", "a");
+        fprintf(csagentPwd, "%s,%s\n", csagent.email, csagent.password);
+        fclose(csagentPwd);
+    }
+
+    
+
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    mainMenu(); 
 }
 
 void registerMenuHelp(void) {
