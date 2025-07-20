@@ -24,4 +24,4 @@ A standalone console-based **garage service management system** written in C. It
 ### 📥 Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/cGarage.git
+git clone https://github.com/Propmk/cGarage.git
