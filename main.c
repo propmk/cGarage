@@ -365,6 +365,7 @@ void loginMenu(void) {
 
 }
 
+
 void loginAsAdmin(void) {
     system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+-------------+\n" RESET);
