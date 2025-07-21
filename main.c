@@ -114,7 +114,7 @@ void mainMenu(void) {
         default:
             printf(RED "Invalid input. Please try again.\n" RESET);
             clearInputBuffer();
-            printf("Press " YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            printf("Press " BLINK YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
             getchar();
             SET_STATE(SHOW_CURSOR);
             mainMenu();
@@ -154,6 +154,9 @@ void registerMenu(void) {
         default:
             printf(RED "Invalid input. Please try again.\n" RESET);
             clearInputBuffer();
+            printf("Press " BLINK YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
             registerMenu();
     }
 }
@@ -420,6 +423,9 @@ void loginMenu(void) {
         default:
             printf(RED "Invalid input. Please try again.\n" RESET);
             clearInputBuffer();
+            printf("Press " BLINK YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
             loginMenu();
     }
 
