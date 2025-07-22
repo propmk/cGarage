@@ -62,13 +62,6 @@ void clearInputBuffer(void);
 int main(void) {
 
     mainMenu();
-    
-
-
-
-
-
-    getchar();
 
     return 0;
 }
