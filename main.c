@@ -217,7 +217,7 @@ void registerAsAdmin(void) {
 
 
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu(); 
@@ -286,7 +286,7 @@ void registerAsTechnician(void) {
 
 
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu(); 
@@ -355,7 +355,7 @@ void registerAsCustomerServiceAgent(void) {
 
 
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu(); 
@@ -373,7 +373,7 @@ void registerMenuHelp(void) {
     printf(GREEN "5. Return to Main Menu.\n" RESET);
 
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the register menu." HIDE_CURSOR);
+    printf("Press " BLINK YELLOW "Enter" RESET " to return to the register menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     registerMenu();
@@ -473,7 +473,7 @@ void loginMenuHelp(void) {
     printf(GREEN "5. Return to Main Menu.\n" RESET);
 
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the login menu." HIDE_CURSOR);
+    printf("Press " BLINK YELLOW "Enter" RESET " to return to the login menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     loginMenu();
@@ -493,7 +493,7 @@ void aboutApp(void) {
     printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
     
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu();
