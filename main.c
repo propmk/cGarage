@@ -58,6 +58,7 @@ void loginAsGuest(void);
 void loginMenuHelp(void);
 void aboutApp(void);
 void clearInputBuffer(void);
+char* getEventTime(void);
 
 int main(void) {
 
@@ -186,15 +187,15 @@ void registerAsAdmin(void) {
     FILE *adminDb = fopen("admins.csv", "r");
     if (adminDb == NULL) {
         adminDb = fopen("admins.csv", "w");
-        fprintf(adminDb, "Name,Email,Phone,Date Of Birth\n");
-        fprintf(adminDb, "%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth);
+        fprintf(adminDb, "Name,Email,Phone,Date Of Birth,Timestamp\n");
+        fprintf(adminDb, "%s,%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth, getEventTime());
         fclose(adminDb);   
     } 
 
     else {
         fclose(adminDb);
         adminDb = fopen("admins.csv", "a");
-        fprintf(adminDb, "%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth);
+        fprintf(adminDb, "%s,%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth, getEventTime());
         fclose(adminDb);
     }
 
@@ -255,15 +256,15 @@ void registerAsTechnician(void) {
     FILE *technicianDb = fopen("technicians.csv", "r");
     if (technicianDb == NULL) {
         technicianDb = fopen("technicians.csv", "w");
-        fprintf(technicianDb, "Name,Email,Phone,Date Of Birth\n");
-        fprintf(technicianDb, "%s,%s,%s,%s\n", technician.name, technician.email, technician.phone, technician.dateOfBirth);
+        fprintf(technicianDb, "Name,Email,Phone,Date Of Birth,Timestamp\n");
+        fprintf(technicianDb, "%s,%s,%s,%s,%s\n", technician.name, technician.email, technician.phone, technician.dateOfBirth, getEventTime());
         fclose(technicianDb);   
     } 
 
     else {
         fclose(technicianDb);
         technicianDb = fopen("technicians.csv", "a");
-        fprintf(technicianDb, "%s,%s,%s,%s\n", technician.name, technician.email, technician.phone, technician.dateOfBirth);
+        fprintf(technicianDb, "%s,%s,%s,%s,%s\n", technician.name, technician.email, technician.phone, technician.dateOfBirth, getEventTime());
         fclose(technicianDb);
     }
 
@@ -324,15 +325,15 @@ void registerAsCustomerServiceAgent(void) {
     FILE *csagentDb = fopen("csagents.csv", "r");
     if (csagentDb == NULL) {
         csagentDb = fopen("csagents.csv", "w");
-        fprintf(csagentDb, "Name,Email,Phone,Date Of Birth\n");
-        fprintf(csagentDb, "%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth);
+        fprintf(csagentDb, "Name,Email,Phone,Date Of Birth,Timestamp\n");
+        fprintf(csagentDb, "%s,%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth, getEventTime());
         fclose(csagentDb);   
     } 
 
     else {
         fclose(csagentDb);
         csagentDb = fopen("csagents.csv", "a");
-        fprintf(csagentDb, "%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth);
+        fprintf(csagentDb, "%s,%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth, getEventTime());
         fclose(csagentDb);
     }
 
@@ -501,4 +502,12 @@ void aboutApp(void) {
 
 void clearInputBuffer(void) {
     while (getchar() != '\n');
+}
+
+char* getEventTime(void) {
+    static char timeBuffer[20];
+    time_t now = time(NULL);
+    struct tm *localTime = localtime(&now);
+    strftime(timeBuffer, sizeof(timeBuffer), "%Y-%m-%d %H:%M:%S", localTime);
+    return timeBuffer;
 }
