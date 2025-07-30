@@ -22,7 +22,6 @@
 #define RESET "\033[0m"
 #define BOLD "\033[1m"
 #define UNDERLINE "\033[4m"
-#define BLINK "\033[5m"
 #define HIGHLIGHT "\033[7m"
 #define CLEAR_LINE "\033[K"
 #define HIDE_CURSOR "\033[?25l"
@@ -109,7 +108,7 @@ void mainMenu(void) {
         default:
             printf(RED "Invalid input. Please try again.\n" RESET);
             clearInputBuffer();
-            printf("Press " BLINK YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            printf("Press "  YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
             getchar();
             SET_STATE(SHOW_CURSOR);
             mainMenu();
@@ -149,7 +148,7 @@ void registerMenu(void) {
         default:
             printf(RED "Invalid input. Please try again.\n" RESET);
             clearInputBuffer();
-            printf("Press " BLINK YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            printf("Press " YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
             getchar();
             SET_STATE(SHOW_CURSOR);
             registerMenu();
@@ -219,7 +218,7 @@ void registerAsAdmin(void) {
 
 
     clearInputBuffer();
-    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu(); 
@@ -288,7 +287,7 @@ void registerAsTechnician(void) {
 
 
     clearInputBuffer();
-    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu(); 
@@ -357,7 +356,7 @@ void registerAsCustomerServiceAgent(void) {
 
 
     clearInputBuffer();
-    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu(); 
@@ -375,7 +374,7 @@ void registerMenuHelp(void) {
     printf(GREEN "5. Return to Main Menu.\n" RESET);
 
     clearInputBuffer();
-    printf("Press " BLINK YELLOW "Enter" RESET " to return to the register menu." HIDE_CURSOR);
+    printf("Press " YELLOW "Enter" RESET " to return to the register menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     registerMenu();
@@ -418,7 +417,7 @@ void loginMenu(void) {
         default:
             printf(RED "Invalid input. Please try again.\n" RESET);
             clearInputBuffer();
-            printf("Press " BLINK YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            printf("Press " YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
             getchar();
             SET_STATE(SHOW_CURSOR);
             loginMenu();
@@ -475,7 +474,7 @@ void loginMenuHelp(void) {
     printf(GREEN "5. Return to Main Menu.\n" RESET);
 
     clearInputBuffer();
-    printf("Press " BLINK YELLOW "Enter" RESET " to return to the login menu." HIDE_CURSOR);
+    printf("Press " YELLOW "Enter" RESET " to return to the login menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     loginMenu();
@@ -495,7 +494,7 @@ void aboutApp(void) {
     printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
     
     clearInputBuffer();
-    printf("Press " BLINK YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
+    printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     mainMenu();
