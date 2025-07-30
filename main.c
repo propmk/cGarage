@@ -156,6 +156,8 @@ void registerMenu(void) {
 }
 
 void registerAsAdmin(void) {
+    char role[] = "Admin";
+
     system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+--------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Admin Registration |\n" RESET);
@@ -184,24 +186,24 @@ void registerAsAdmin(void) {
     
     printf(GREEN "Registration successful for Admin: %s\n" RESET, admin.name);
 
-    FILE *adminDb = fopen("admins.csv", "r");
+    FILE *adminDb = fopen("users.csv", "r");
     if (adminDb == NULL) {
-        adminDb = fopen("admins.csv", "w");
-        fprintf(adminDb, "Name,Email,Phone,Date Of Birth,Timestamp\n");
-        fprintf(adminDb, "%s,%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth, getEventTime());
+        adminDb = fopen("users.csv", "w");
+        fprintf(adminDb, "Name,Role,Email,Phone,Date Of Birth,Role,Timestamp\n");
+        fprintf(adminDb, "%s,%s,%s,%s,%s,%s\n", admin.name, role, admin.email, admin.phone, admin.dateOfBirth, getEventTime());
         fclose(adminDb);   
     } 
 
     else {
         fclose(adminDb);
-        adminDb = fopen("admins.csv", "a");
-        fprintf(adminDb, "%s,%s,%s,%s,%s\n", admin.name, admin.email, admin.phone, admin.dateOfBirth, getEventTime());
+        adminDb = fopen("users.csv", "a");
+        fprintf(adminDb, "%s,%s,%s,%s,%s,%s\n", admin.name, role, admin.email, admin.phone, admin.dateOfBirth, getEventTime());
         fclose(adminDb);
     }
 
-    FILE *adminPwd = fopen("admins.pwd", "r");
+    FILE *adminPwd = fopen("sysdb.pwd", "r");
     if (adminPwd == NULL) {
-        adminPwd = fopen("admins.pwd", "w");
+        adminPwd = fopen("sysdb.pwd", "w");
         fprintf(adminPwd, "Email,Password\n");
         fprintf(adminPwd, "%s,%s\n", admin.email, admin.password);
         fclose(adminPwd);   
@@ -209,7 +211,7 @@ void registerAsAdmin(void) {
 
     else {
         fclose(adminPwd);
-        adminPwd = fopen("admins.pwd", "a");
+        adminPwd = fopen("sysdb.pwd", "a");
         fprintf(adminPwd, "%s,%s\n", admin.email, admin.password);
         fclose(adminPwd);
     }
@@ -225,6 +227,8 @@ void registerAsAdmin(void) {
 }
 
 void registerAsTechnician(void) {
+    char role[] = "Technician";
+
     system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+-------------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Technician Registration |\n" RESET);
@@ -253,24 +257,24 @@ void registerAsTechnician(void) {
     
     printf(GREEN "Registration successful for Technician: %s\n" RESET, technician.name);
 
-    FILE *technicianDb = fopen("technicians.csv", "r");
+    FILE *technicianDb = fopen("users.csv", "r");
     if (technicianDb == NULL) {
-        technicianDb = fopen("technicians.csv", "w");
-        fprintf(technicianDb, "Name,Email,Phone,Date Of Birth,Timestamp\n");
-        fprintf(technicianDb, "%s,%s,%s,%s,%s\n", technician.name, technician.email, technician.phone, technician.dateOfBirth, getEventTime());
+        technicianDb = fopen("users.csv", "w");
+        fprintf(technicianDb, "Name,Role,Email,Phone,Date Of Birth,Timestamp\n");
+        fprintf(technicianDb, "%s,%s,%s,%s,%s,%s\n", technician.name, role, technician.email, technician.phone, technician.dateOfBirth, getEventTime());
         fclose(technicianDb);   
     } 
 
     else {
         fclose(technicianDb);
-        technicianDb = fopen("technicians.csv", "a");
-        fprintf(technicianDb, "%s,%s,%s,%s,%s\n", technician.name, technician.email, technician.phone, technician.dateOfBirth, getEventTime());
+        technicianDb = fopen("users.csv", "a");
+        fprintf(technicianDb, "%s,%s,%s,%s,%s,%s\n", technician.name, role, technician.email, technician.phone, technician.dateOfBirth, getEventTime());
         fclose(technicianDb);
     }
 
-    FILE *technicianPwd = fopen("technicians.pwd", "r");
+    FILE *technicianPwd = fopen("sysdb.pwd", "r");
     if (technicianPwd == NULL) {
-        technicianPwd = fopen("technicians.pwd", "w");
+        technicianPwd = fopen("sysdb.pwd", "w");
         fprintf(technicianPwd, "Email,Password\n");
         fprintf(technicianPwd, "%s,%s\n", technician.email, technician.password);
         fclose(technicianPwd);   
@@ -278,7 +282,7 @@ void registerAsTechnician(void) {
 
     else {
         fclose(technicianPwd);
-        technicianPwd = fopen("technicians.pwd", "a");
+        technicianPwd = fopen("sysdb.pwd", "a");
         fprintf(technicianPwd, "%s,%s\n", technician.email, technician.password);
         fclose(technicianPwd);
     }
@@ -294,6 +298,8 @@ void registerAsTechnician(void) {
 }
 
 void registerAsCustomerServiceAgent(void) {
+    char role[] = "Customer Service Agent";
+
     system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+-------------------------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Customer Service Agent Registration |\n" RESET);
@@ -322,24 +328,24 @@ void registerAsCustomerServiceAgent(void) {
     
     printf(GREEN "Registration successful for Customer Service Agent: %s\n" RESET, csagent.name);
 
-    FILE *csagentDb = fopen("csagents.csv", "r");
+    FILE *csagentDb = fopen("users.csv", "r");
     if (csagentDb == NULL) {
-        csagentDb = fopen("csagents.csv", "w");
-        fprintf(csagentDb, "Name,Email,Phone,Date Of Birth,Timestamp\n");
-        fprintf(csagentDb, "%s,%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth, getEventTime());
+        csagentDb = fopen("users.csv", "w");
+        fprintf(csagentDb, "Name,Role,Email,Phone,Date Of Birth,Timestamp\n");
+        fprintf(csagentDb, "%s,%s,%s,%s,%s,%s\n", csagent.name, role, csagent.email, csagent.phone, csagent.dateOfBirth, getEventTime());
         fclose(csagentDb);   
     } 
 
     else {
         fclose(csagentDb);
-        csagentDb = fopen("csagents.csv", "a");
-        fprintf(csagentDb, "%s,%s,%s,%s,%s\n", csagent.name, csagent.email, csagent.phone, csagent.dateOfBirth, getEventTime());
+        csagentDb = fopen("users.csv", "a");
+        fprintf(csagentDb, "%s,%s,%s,%s,%s,%s\n", csagent.name, role, csagent.email, csagent.phone, csagent.dateOfBirth, getEventTime());
         fclose(csagentDb);
     }
 
-    FILE *csagentPwd = fopen("csagents.pwd", "r");
+    FILE *csagentPwd = fopen("sysdb.pwd", "r");
     if (csagentPwd == NULL) {
-        csagentPwd = fopen("csagents.pwd", "w");
+        csagentPwd = fopen("sysdb.pwd", "w");
         fprintf(csagentPwd, "Email,Password\n");
         fprintf(csagentPwd, "%s,%s\n", csagent.email, csagent.password);
         fclose(csagentPwd);   
@@ -347,7 +353,7 @@ void registerAsCustomerServiceAgent(void) {
 
     else {
         fclose(csagentPwd);
-        csagentPwd = fopen("csagents.pwd", "a");
+        csagentPwd = fopen("sysdb.pwd", "a");
         fprintf(csagentPwd, "%s,%s\n", csagent.email, csagent.password);
         fclose(csagentPwd);
     }
