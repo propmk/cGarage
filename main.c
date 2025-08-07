@@ -64,6 +64,12 @@ void loginMenuHelp(void);
 void adminDashboard(void);
 void technicianDashboard(void);
 void customerServiceAgentDashboard(void);
+void viewActiveRepairs(void);
+void viewRepairHistory(void);
+void updateCarRepairStatus(void);
+void viewServiceRequests(void);
+void logVehicle(void);
+void generateBill(void);
 void aboutApp(void);
 void clearInputBuffer(void);
 char* getEventTime(void);
@@ -711,8 +717,41 @@ void adminDashboard(void) {
     printf(BRIGHT_BLUE "| Admin Dashboard |\n" RESET);
     printf(BRIGHT_BLUE "+-----------------+\n" RESET);
 
-
+    printf(GREEN "[" YELLOW "1" GREEN "] Active Repairs\n" RESET);
+    printf(GREEN "[" YELLOW "2" GREEN "] View Repair History\n" RESET);
+    printf(GREEN "[" YELLOW "3" GREEN "] Update Repair Status\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Logout\n" RESET);
+    printf(YELLOW "Enter your choice: " RESET);
     
+    int choice;
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            viewActiveRepairs();
+            break;
+        case 2:
+            viewRepairHistory();
+            break;
+        case 3:
+            updateCarRepairStatus();
+            break;
+        case 4:
+            printf(GREEN "Logged out successfully.\n" RESET);
+            clearInputBuffer();
+            printf("Press " YELLOW "Enter" RESET " to return to main menu." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
+            mainMenu();
+            return;
+        default:
+            printf(RED "Invalid input. Please try again.\n" RESET);
+            clearInputBuffer();
+            printf("Press " YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
+            adminDashboard();
+    }
+
 }
 
 void technicianDashboard(void) {
@@ -720,9 +759,43 @@ void technicianDashboard(void) {
     printf(BRIGHT_BLUE "+-----------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Technician Dashboard  |\n" RESET);
     printf(BRIGHT_BLUE "+-----------------------+\n" RESET);
-    
 
+    printf(GREEN "[" YELLOW "1" GREEN "] View Service Requests\n" RESET);
+    printf(GREEN "[" YELLOW "2" GREEN "] Update Repair Status\n" RESET);
+    printf(GREEN "[" YELLOW "3" GREEN "] View Repair History\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Logout\n" RESET);
+    printf(YELLOW "Enter your choice: " RESET);
     
+    int choice;
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            viewServiceRequests();
+            break;
+        case 2:
+            updateCarRepairStatus();
+            break;
+        case 3:
+            viewRepairHistory();
+            break;
+        case 4:
+            printf(GREEN "Logged out successfully.\n" RESET);
+            clearInputBuffer();
+            printf("Press " YELLOW "Enter" RESET " to return to main menu." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
+            mainMenu();
+            return;
+        default:
+            printf(RED "Invalid input. Please try again.\n" RESET);
+            clearInputBuffer();
+            printf("Press " YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
+            technicianDashboard();
+        
+    }
+  
 }
 
 void customerServiceAgentDashboard(void) {
@@ -731,8 +804,127 @@ void customerServiceAgentDashboard(void) {
     printf(BRIGHT_BLUE "| Customer Service Agent Dashboard |\n" RESET);
     printf(BRIGHT_BLUE "+----------------------------------+\n" RESET);
     
-
+    printf(GREEN "[" YELLOW "1" GREEN "] View Repair History\n" RESET);
+    printf(GREEN "[" YELLOW "2" GREEN "] Log Vehicle\n" RESET);
+    printf(GREEN "[" YELLOW "3" GREEN "] Generate Bill\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Logout\n" RESET);
+    printf(YELLOW "Enter your choice: " RESET);
     
+    int choice;
+    scanf("%d", &choice);
+    switch (choice) {
+        case 1:
+            viewRepairHistory();
+            break;
+        case 2:
+            logVehicle();
+            break;
+        case 3:
+            generateBill();
+            break;
+        case 4:
+            printf(GREEN "Logged out successfully.\n" RESET);
+            clearInputBuffer();
+            printf("Press " YELLOW "Enter" RESET " to return to main menu." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
+            mainMenu();
+            return;
+        default:
+            printf(RED "Invalid input. Please try again.\n" RESET);
+            clearInputBuffer();
+            printf("Press " YELLOW "Enter" RESET " to continue..." HIDE_CURSOR);
+            getchar();
+            SET_STATE(SHOW_CURSOR);
+            customerServiceAgentDashboard();
+    }
+
+}
+
+void viewActiveRepairs(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+---------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Active Repairs List |\n" RESET);
+    printf(BRIGHT_BLUE "+---------------------+\n" RESET);
+
+
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    adminDashboard();
+}
+
+void viewRepairHistory(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+---------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Repair History List |\n" RESET);
+    printf(BRIGHT_BLUE "+---------------------+\n" RESET);
+
+
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    adminDashboard();
+}
+
+void updateCarRepairStatus(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+--------------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Update Car Repair Status |\n" RESET);
+    printf(BRIGHT_BLUE "+--------------------------+\n" RESET);
+
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    adminDashboard();
+}
+
+void viewServiceRequests(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+-----------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| View Service Requests |\n" RESET);
+    printf(BRIGHT_BLUE "+-----------------------+\n" RESET);
+
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    adminDashboard();
+}
+
+void logVehicle(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+-------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Log Vehicle |\n" RESET);
+    printf(BRIGHT_BLUE "+-------------+\n" RESET);
+
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    customerServiceAgentDashboard();
+}
+
+void generateBill(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+---------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Generate Bill |\n" RESET);
+    printf(BRIGHT_BLUE "+---------------+\n" RESET);
+
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    customerServiceAgentDashboard();
 }
 
 void aboutApp(void) {
@@ -743,7 +935,7 @@ void aboutApp(void) {
     printf(BRIGHT_BLUE "|                                                    |\n" RESET);
     printf(BRIGHT_BLUE "|" GREEN "  Garage Service Management System                  " BRIGHT_BLUE "|\n" RESET);
     printf(BRIGHT_BLUE "|" GREEN "  Version: 0.0.0                                    " BRIGHT_BLUE "|\n" RESET);
-    printf(BRIGHT_BLUE "|" GREEN "  License: GPLv3                                    " BRIGHT_BLUE "|\n" RESET);
+    printf(BRIGHT_BLUE "|" GREEN "  License: MIT                                      " BRIGHT_BLUE "|\n" RESET);
     printf(BRIGHT_BLUE "|" GREEN "  Github Repo: " CYAN "https://github.com/Propmk/cGarage    " BRIGHT_BLUE "|\n" RESET);
     printf(BRIGHT_BLUE "|                                                    |\n" RESET);
     printf(BRIGHT_BLUE "+----------------------------------------------------+\n" RESET);
