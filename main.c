@@ -43,6 +43,12 @@ typedef struct {
     char password[50];
 } Employee;
 
+typedef struct {
+    char email[50];
+    char role[25];
+    char password[50];
+} PasswordRecord;
+
 void mainHeader(void);
 void mainMenu(void);
 void registerMenu(void);
@@ -54,8 +60,10 @@ void loginMenu(void);
 void loginAsAdmin(void);
 void loginAsTechnician(void);
 void loginAsCustomerServiceAgent(void);
-void loginAsGuest(void);
 void loginMenuHelp(void);
+void adminDashboard(void);
+void technicianDashboard(void);
+void customerServiceAgentDashboard(void);
 void aboutApp(void);
 void clearInputBuffer(void);
 char* getEventTime(void);
@@ -189,7 +197,7 @@ void registerAsAdmin(void) {
     FILE *adminDb = fopen("users.csv", "r");
     if (adminDb == NULL) {
         adminDb = fopen("users.csv", "w");
-        fprintf(adminDb, "Name,Role,Email,Phone,Date Of Birth,Role,Timestamp\n");
+        fprintf(adminDb, "Name,Role,Email,Phone,Date Of Birth,Timestamp\n");
         fprintf(adminDb, "%s,%s,%s,%s,%s,%s\n", admin.name, role, admin.email, admin.phone, admin.dateOfBirth, getEventTime());
         fclose(adminDb);   
     } 
@@ -201,23 +209,27 @@ void registerAsAdmin(void) {
         fclose(adminDb);
     }
 
-    FILE *adminPwd = fopen("sysdb.pwd", "r");
+    FILE *adminPwd = fopen("sysdb.pwd", "rb");
     if (adminPwd == NULL) {
-        adminPwd = fopen("sysdb.pwd", "w");
-        fprintf(adminPwd, "Email,Password\n");
-        fprintf(adminPwd, "%s,%s\n", admin.email, admin.password);
+        adminPwd = fopen("sysdb.pwd", "wb");
+        PasswordRecord record;
+        strcpy(record.email, admin.email);
+        strcpy(record.role, role);
+        strcpy(record.password, admin.password);
+        fwrite(&record, sizeof(PasswordRecord), 1, adminPwd);
         fclose(adminPwd);   
     } 
 
     else {
         fclose(adminPwd);
-        adminPwd = fopen("sysdb.pwd", "a");
-        fprintf(adminPwd, "%s,%s\n", admin.email, admin.password);
+        adminPwd = fopen("sysdb.pwd", "ab");
+        PasswordRecord record;
+        strcpy(record.email, admin.email);
+        strcpy(record.role, role);
+        strcpy(record.password, admin.password);
+        fwrite(&record, sizeof(PasswordRecord), 1, adminPwd);
         fclose(adminPwd);
     }
-
-    
-
 
     clearInputBuffer();
     printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
@@ -272,23 +284,27 @@ void registerAsTechnician(void) {
         fclose(technicianDb);
     }
 
-    FILE *technicianPwd = fopen("sysdb.pwd", "r");
+    FILE *technicianPwd = fopen("sysdb.pwd", "rb");
     if (technicianPwd == NULL) {
-        technicianPwd = fopen("sysdb.pwd", "w");
-        fprintf(technicianPwd, "Email,Password\n");
-        fprintf(technicianPwd, "%s,%s\n", technician.email, technician.password);
+        technicianPwd = fopen("sysdb.pwd", "wb");
+        PasswordRecord record;
+        strcpy(record.email, technician.email);
+        strcpy(record.role, role);
+        strcpy(record.password, technician.password);
+        fwrite(&record, sizeof(PasswordRecord), 1, technicianPwd);
         fclose(technicianPwd);   
     } 
 
     else {
         fclose(technicianPwd);
-        technicianPwd = fopen("sysdb.pwd", "a");
-        fprintf(technicianPwd, "%s,%s\n", technician.email, technician.password);
+        technicianPwd = fopen("sysdb.pwd", "ab");
+        PasswordRecord record;
+        strcpy(record.email, technician.email);
+        strcpy(record.role, role);
+        strcpy(record.password, technician.password);
+        fwrite(&record, sizeof(PasswordRecord), 1, technicianPwd);
         fclose(technicianPwd);
     }
-
-    
-
 
     clearInputBuffer();
     printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
@@ -343,23 +359,27 @@ void registerAsCustomerServiceAgent(void) {
         fclose(csagentDb);
     }
 
-    FILE *csagentPwd = fopen("sysdb.pwd", "r");
+    FILE *csagentPwd = fopen("sysdb.pwd", "rb");
     if (csagentPwd == NULL) {
-        csagentPwd = fopen("sysdb.pwd", "w");
-        fprintf(csagentPwd, "Email,Password\n");
-        fprintf(csagentPwd, "%s,%s\n", csagent.email, csagent.password);
+        csagentPwd = fopen("sysdb.pwd", "wb");
+        PasswordRecord record;
+        strcpy(record.email, csagent.email);
+        strcpy(record.role, role);
+        strcpy(record.password, csagent.password);
+        fwrite(&record, sizeof(PasswordRecord), 1, csagentPwd);
         fclose(csagentPwd);   
     } 
 
     else {
         fclose(csagentPwd);
-        csagentPwd = fopen("sysdb.pwd", "a");
-        fprintf(csagentPwd, "%s,%s\n", csagent.email, csagent.password);
+        csagentPwd = fopen("sysdb.pwd", "ab");
+        PasswordRecord record;
+        strcpy(record.email, csagent.email);
+        strcpy(record.role, role);
+        strcpy(record.password, csagent.password);
+        fwrite(&record, sizeof(PasswordRecord), 1, csagentPwd);
         fclose(csagentPwd);
     }
-
-    
-
 
     clearInputBuffer();
     printf("Press " YELLOW "Enter" RESET " to return to the main menu." HIDE_CURSOR);
@@ -394,9 +414,8 @@ void loginMenu(void) {
     printf(GREEN "[" YELLOW "1" GREEN "] Admin\n" RESET);
     printf(GREEN "[" YELLOW "2" GREEN "] Technician\n" RESET);
     printf(GREEN "[" YELLOW "3" GREEN "] Customer Service Agent\n" RESET);
-    printf(GREEN "[" YELLOW "4" GREEN "] Guest\n" RESET);
-    printf(GREEN "[" YELLOW "5" GREEN "] Help\n" RESET);
-    printf(GREEN "[" YELLOW "6" GREEN "] Return to Main Menu\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] Help\n" RESET);
+    printf(GREEN "[" YELLOW "5" GREEN "] Return to Main Menu\n" RESET);
     printf(YELLOW "Enter your choice: " RESET);
 
     int choice;
@@ -412,12 +431,9 @@ void loginMenu(void) {
             loginAsCustomerServiceAgent();
             break;
         case 4:
-            loginAsGuest();
-            break;
-        case 5:
             loginMenuHelp();
             break;
-        case 6:
+        case 5:
             mainMenu();
             break;
         default:
@@ -437,7 +453,78 @@ void loginAsAdmin(void) {
     printf(BRIGHT_BLUE "| Admin Login |\n" RESET);
     printf(BRIGHT_BLUE "+-------------+\n" RESET);
 
+    char email[50];
+    char password[50];
+    char line[150];
+    int loginSuccess = 0;
+
+    printf(YELLOW "Email: " RESET);
     getchar();
+    fgets(email, sizeof(email), stdin);
+    email[strcspn(email, "\n")] = '\0';
+
+    printf(YELLOW "Password: " RESET);
+    fgets(password, sizeof(password), stdin);
+    password[strcspn(password, "\n")] = '\0';
+
+    FILE *pwdFile = fopen("sysdb.pwd", "rb");
+    if (pwdFile == NULL) {
+        printf(RED "No user database found. Please register first.\n" RESET);
+        clearInputBuffer();
+        printf("Press " YELLOW "Enter" RESET " to return to login menu." HIDE_CURSOR);
+        getchar();
+        SET_STATE(SHOW_CURSOR);
+        loginMenu();
+        return;
+    }
+
+    PasswordRecord record;
+    while (fread(&record, sizeof(PasswordRecord), 1, pwdFile) == 1) {
+        if (strcmp(email, record.email) == 0 && strcmp(password, record.password) == 0 && strcmp(record.role, "Admin") == 0) {
+            loginSuccess = 1;
+            break;
+        }
+    }
+    fclose(pwdFile);
+
+    if (loginSuccess) {
+        
+        FILE *userFile = fopen("users.csv", "r");
+        if (userFile != NULL) {
+            char userName[50], userRole[50], userEmail[50], userPhone[15], userDOB[11], timestamp[20];
+            
+
+            fgets(line, sizeof(line), userFile);
+            
+            while (fgets(line, sizeof(line), userFile)) {
+                if (sscanf(line, "%[^,],%[^,],%[^,],%[^,],%[^,],%s", 
+                          userName, userRole, userEmail, userPhone, userDOB, timestamp) == 6) {
+                    if (strcmp(email, userEmail) == 0 && strcmp(userRole, "Admin") == 0) {
+                        printf(GREEN "Login successful! Welcome, Admin %s\n" RESET, userName);
+                        fclose(userFile);
+                        
+                        clearInputBuffer();
+                        printf("Press " YELLOW "Enter" RESET " to continue to dashboard..." HIDE_CURSOR);
+                        getchar();
+                        SET_STATE(SHOW_CURSOR);
+                        adminDashboard();
+                        return;
+                    }
+                }
+            }
+            fclose(userFile);
+        }
+        
+        printf(RED "Access denied. You are not registered as an Admin.\n" RESET);
+    } else {
+        printf(RED "Invalid email or password. Please try again.\n" RESET);
+    }
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to login menu." HIDE_CURSOR);
+    getchar();
+    SET_STATE(SHOW_CURSOR);
+    loginMenu();
 }
 
 void loginAsTechnician(void) {
@@ -446,7 +533,79 @@ void loginAsTechnician(void) {
     printf(BRIGHT_BLUE "| Technician Login |\n" RESET);
     printf(BRIGHT_BLUE "+------------------+\n" RESET);
 
+    char email[50];
+    char password[50];
+    char line[150];
+    int loginSuccess = 0;
+
+    printf(YELLOW "Email: " RESET);
+    getchar(); 
+    fgets(email, sizeof(email), stdin);
+    email[strcspn(email, "\n")] = '\0'; 
+
+    printf(YELLOW "Password: " RESET);
+    fgets(password, sizeof(password), stdin);
+    password[strcspn(password, "\n")] = '\0';
+
+    FILE *pwdFile = fopen("sysdb.pwd", "rb");
+    if (pwdFile == NULL) {
+        printf(RED "No user database found. Please register first.\n" RESET);
+        clearInputBuffer();
+        printf("Press " YELLOW "Enter" RESET " to return to login menu." HIDE_CURSOR);
+        getchar();
+        SET_STATE(SHOW_CURSOR);
+        loginMenu();
+        return;
+    }
+
+    PasswordRecord record;
+    while (fread(&record, sizeof(PasswordRecord), 1, pwdFile) == 1) {
+        if (strcmp(email, record.email) == 0 && strcmp(password, record.password) == 0 && strcmp(record.role, "Technician") == 0) {
+            loginSuccess = 1;
+            break;
+        }
+    }
+    fclose(pwdFile);
+
+    if (loginSuccess) {
+    
+        FILE *userFile = fopen("users.csv", "r");
+        if (userFile != NULL) {
+            char userName[50], userRole[50], userEmail[50], userPhone[15], userDOB[11], timestamp[20];
+            
+        
+            fgets(line, sizeof(line), userFile);
+            
+            while (fgets(line, sizeof(line), userFile)) {
+                if (sscanf(line, "%[^,],%[^,],%[^,],%[^,],%[^,],%s", 
+                          userName, userRole, userEmail, userPhone, userDOB, timestamp) == 6) {
+                    if (strcmp(email, userEmail) == 0 && strcmp(userRole, "Technician") == 0) {
+                        printf(GREEN "Login successful! Welcome, Technician %s\n" RESET, userName);
+                        fclose(userFile);
+                        
+                        clearInputBuffer();
+                        printf("Press " YELLOW "Enter" RESET " to continue to dashboard..." HIDE_CURSOR);
+                        getchar();
+                        SET_STATE(SHOW_CURSOR);
+                        technicianDashboard();
+                        return;
+                    }
+                }
+            }
+            fclose(userFile);
+        }
+        
+
+        printf(RED "Access denied. You are not registered as a Technician.\n" RESET);
+    } else {
+        printf(RED "Invalid email or password. Please try again.\n" RESET);
+    }
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to login menu." HIDE_CURSOR);
     getchar();
+    SET_STATE(SHOW_CURSOR);
+    loginMenu();
 }
 
 void loginAsCustomerServiceAgent(void) {
@@ -455,16 +614,77 @@ void loginAsCustomerServiceAgent(void) {
     printf(BRIGHT_BLUE "| Customer Service Agent Login |\n" RESET);
     printf(BRIGHT_BLUE "+------------------------------+\n" RESET);
 
-    getchar();
-}
+    char email[50];
+    char password[50];
+    char line[150];
+    int loginSuccess = 0;
 
-void loginAsGuest(void) {
-    system(CLEAR_SCREEN);
-    printf(BRIGHT_BLUE "+-------------+\n" RESET);
-    printf(BRIGHT_BLUE "| Guest Login |\n" RESET);
-    printf(BRIGHT_BLUE "+-------------+\n" RESET);
+    printf(YELLOW "Email: " RESET);
+    getchar(); 
+    fgets(email, sizeof(email), stdin);
+    email[strcspn(email, "\n")] = '\0'; 
 
+    printf(YELLOW "Password: " RESET);
+    fgets(password, sizeof(password), stdin);
+    password[strcspn(password, "\n")] = '\0';
+
+    FILE *pwdFile = fopen("sysdb.pwd", "rb");
+    if (pwdFile == NULL) {
+        printf(RED "No user database found. Please register first.\n" RESET);
+        clearInputBuffer();
+        printf("Press " YELLOW "Enter" RESET " to return to login menu." HIDE_CURSOR);
+        getchar();
+        SET_STATE(SHOW_CURSOR);
+        loginMenu();
+        return;
+    }
+
+    PasswordRecord record;
+    while (fread(&record, sizeof(PasswordRecord), 1, pwdFile) == 1) {
+        if (strcmp(email, record.email) == 0 && strcmp(password, record.password) == 0 && strcmp(record.role, "Customer Service Agent") == 0) {
+            loginSuccess = 1;
+            break;
+        }
+    }
+    fclose(pwdFile);
+
+    if (loginSuccess) {
+
+        FILE *userFile = fopen("users.csv", "r");
+        if (userFile != NULL) {
+            char userName[50], userRole[50], userEmail[50], userPhone[15], userDOB[11], timestamp[20];
+            
+            fgets(line, sizeof(line), userFile);
+            
+            while (fgets(line, sizeof(line), userFile)) {
+                if (sscanf(line, "%[^,],%[^,],%[^,],%[^,],%[^,],%s", 
+                          userName, userRole, userEmail, userPhone, userDOB, timestamp) == 6) {
+                    if (strcmp(email, userEmail) == 0 && strcmp(userRole, "Customer Service Agent") == 0) {
+                        printf(GREEN "Login successful! Welcome, Customer Service Agent %s\n" RESET, userName);
+                        fclose(userFile);
+                
+                        clearInputBuffer();
+                        printf("Press " YELLOW "Enter" RESET " to continue to dashboard..." HIDE_CURSOR);
+                        getchar();
+                        SET_STATE(SHOW_CURSOR);
+                        customerServiceAgentDashboard();
+                        return;
+                    }
+                }
+            }
+            fclose(userFile);
+        }
+        
+        printf(RED "Access denied. You are not registered as a Customer Service Agent.\n" RESET);
+    } else {
+        printf(RED "Invalid email or password. Please try again.\n" RESET);
+    }
+
+    clearInputBuffer();
+    printf("Press " YELLOW "Enter" RESET " to return to login menu." HIDE_CURSOR);
     getchar();
+    SET_STATE(SHOW_CURSOR);
+    loginMenu();
 }
 
 void loginMenuHelp(void) {
@@ -475,7 +695,6 @@ void loginMenuHelp(void) {
     printf(GREEN "1. Admin: Login as an administrator.\n" RESET);
     printf(GREEN "2. Technician: Login as a technician.\n" RESET);
     printf(GREEN "3. Customer Service Agent: Login as a customer service agent.\n" RESET);
-    printf(GREEN "3. Guest: Login as a guest user.\n" RESET);
     printf(GREEN "4. Help: Shows this menu.\n" RESET);
     printf(GREEN "5. Return to Main Menu.\n" RESET);
 
@@ -484,6 +703,36 @@ void loginMenuHelp(void) {
     getchar();
     SET_STATE(SHOW_CURSOR);
     loginMenu();
+}
+
+void adminDashboard(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+-----------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Admin Dashboard |\n" RESET);
+    printf(BRIGHT_BLUE "+-----------------+\n" RESET);
+
+
+    
+}
+
+void technicianDashboard(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+-----------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Technician Dashboard  |\n" RESET);
+    printf(BRIGHT_BLUE "+-----------------------+\n" RESET);
+    
+
+    
+}
+
+void customerServiceAgentDashboard(void) {
+    system(CLEAR_SCREEN);
+    printf(BRIGHT_BLUE "+----------------------------------+\n" RESET);
+    printf(BRIGHT_BLUE "| Customer Service Agent Dashboard |\n" RESET);
+    printf(BRIGHT_BLUE "+----------------------------------+\n" RESET);
+    
+
+    
 }
 
 void aboutApp(void) {
