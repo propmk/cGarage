@@ -29,6 +29,10 @@
 #define SET_STATE(state) printf("%s", state)
 #define RESET_STATE() printf(RESET)
 
+#define ADMIN_DASHBOARD 1
+#define TECHNICIAN_DASHBOARD 2
+#define CS_AGENT_DASHBOARD 3
+
 #ifdef _WIN32
     #define CLEAR_SCREEN "cls"
 #else
@@ -49,6 +53,22 @@ typedef struct {
     char password[50];
 } PasswordRecord;
 
+typedef struct {
+    char vehicleMake[50];
+    char vehicleModel[50];
+    char vehicleYear[5];
+    char licensePlate[20];
+    char vehicleColor[30];
+    char mileage[15];
+    char customerName[50];
+    char customerPhone[15];
+    char serviceType[100];
+    char problemDescription[500];
+    char urgencyLevel[20];
+    char status[20];
+    char timestamp[20];
+} VehicleRecord;
+
 void mainHeader(void);
 void mainMenu(void);
 void registerMenu(void);
@@ -65,7 +85,7 @@ void adminDashboard(void);
 void technicianDashboard(void);
 void customerServiceAgentDashboard(void);
 void viewActiveRepairs(void);
-void viewRepairHistory(void);
+void viewRepairHistory(int callerDashboard);
 void updateCarRepairStatus(void);
 void viewServiceRequests(void);
 void logVehicle(void);
@@ -73,6 +93,7 @@ void generateBill(void);
 void aboutApp(void);
 void clearInputBuffer(void);
 char* getEventTime(void);
+int findLatestVehicleRecordByPlate(const char *plate, VehicleRecord *outRecord);
 
 int main(void) {
 
@@ -730,7 +751,7 @@ void adminDashboard(void) {
             viewActiveRepairs();
             break;
         case 2:
-            viewRepairHistory();
+            viewRepairHistory(ADMIN_DASHBOARD);
             break;
         case 3:
             updateCarRepairStatus();
@@ -776,7 +797,7 @@ void technicianDashboard(void) {
             updateCarRepairStatus();
             break;
         case 3:
-            viewRepairHistory();
+            viewRepairHistory(TECHNICIAN_DASHBOARD);
             break;
         case 4:
             printf(GREEN "Logged out successfully.\n" RESET);
@@ -814,7 +835,7 @@ void customerServiceAgentDashboard(void) {
     scanf("%d", &choice);
     switch (choice) {
         case 1:
-            viewRepairHistory();
+            viewRepairHistory(CS_AGENT_DASHBOARD);
             break;
         case 2:
             logVehicle();
@@ -847,7 +868,47 @@ void viewActiveRepairs(void) {
     printf(BRIGHT_BLUE "| Active Repairs List |\n" RESET);
     printf(BRIGHT_BLUE "+---------------------+\n" RESET);
 
+    FILE *vehicleDb = fopen("vehicles.csv", "r");
+    if (vehicleDb == NULL) {
+        printf(RED "No vehicle records found. No active repairs available.\n" RESET);
+    } else {
+        char line[800];
+        int recordCount = 0;
+        
+        fgets(line, sizeof(line), vehicleDb);
+        
+        printf(CYAN "%-15s %-15s %-12s %-20s %-10s %-20s\n" RESET, 
+               "Vehicle", "Customer", "Phone", "Service Type", "Urgency", "Status");
+        printf(CYAN "%-15s %-15s %-12s %-20s %-10s %-20s\n" RESET,
+               "-------", "--------", "-----", "------------", "-------", "------");
+        
+        while (fgets(line, sizeof(line), vehicleDb)) {
+            char vehicleMake[50], vehicleModel[50], year[5], licensePlate[20], color[30], mileage[15];
+            char customerName[50], customerPhone[15], serviceType[100], problemDesc[500], urgency[20], status[20], timestamp[20];
+            
+            if (sscanf(line, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]",
+                      vehicleMake, vehicleModel, year, licensePlate, color, mileage,
+                      customerName, customerPhone, serviceType, problemDesc, urgency, status, timestamp) == 13) {
+                
 
+                if (strcmp(status, "Pending") == 0 || strcmp(status, "In Progress") == 0) {
+                    char vehicleInfo[30];
+                    snprintf(vehicleInfo, sizeof(vehicleInfo), "%s %s", vehicleMake, vehicleModel);
+                    
+                    printf("%-15s %-15s %-12s %-20s %-10s %-20s\n",
+                           vehicleInfo, customerName, customerPhone, serviceType, urgency, status);
+                    recordCount++;
+                }
+            }
+        }
+        fclose(vehicleDb);
+        
+        if (recordCount == 0) {
+            printf(YELLOW "No active repairs found.\n" RESET);
+        } else {
+            printf(GREEN "\nTotal active repairs: %d\n" RESET, recordCount);
+        }
+    }
 
     clearInputBuffer();
     printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
@@ -856,19 +917,74 @@ void viewActiveRepairs(void) {
     adminDashboard();
 }
 
-void viewRepairHistory(void) {
+void viewRepairHistory(int callerDashboard) {
     system(CLEAR_SCREEN);
     printf(BRIGHT_BLUE "+---------------------+\n" RESET);
     printf(BRIGHT_BLUE "| Repair History List |\n" RESET);
     printf(BRIGHT_BLUE "+---------------------+\n" RESET);
 
+    FILE *vehicleDb = fopen("vehicles.csv", "r");
+    if (vehicleDb == NULL) {
+        printf(RED "No vehicle records found. No repair history available.\n" RESET);
+    } else {
+        char line[800];
+        int recordCount = 0;
+        
+        fgets(line, sizeof(line), vehicleDb);
+        
+        printf(CYAN "%-15s %-15s %-12s %-20s %-20s %-15s\n" RESET, 
+               "Vehicle", "Customer", "Phone", "Service Type", "Status", "Date");
+        printf(CYAN "%-15s %-15s %-12s %-20s %-20s %-15s\n" RESET,
+               "-------", "--------", "-----", "------------", "------", "----");
+        
+        while (fgets(line, sizeof(line), vehicleDb)) {
+            char vehicleMake[50], vehicleModel[50], year[5], licensePlate[20], color[30], mileage[15];
+            char customerName[50], customerPhone[15], serviceType[100], problemDesc[500], urgency[20], status[20], timestamp[20];
+            
+            if (sscanf(line, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,]",
+                      vehicleMake, vehicleModel, year, licensePlate, color, mileage,
+                      customerName, customerPhone, serviceType, problemDesc, urgency, status, timestamp) == 13) {
 
+                char vehicleInfo[30];
+                snprintf(vehicleInfo, sizeof(vehicleInfo), "%s %s", vehicleMake, vehicleModel);
+                
+                char date[11];
+                strncpy(date, timestamp, 10);
+                date[10] = '\0';
+
+                printf("%-15s %-15s %-12s %-20s %-20s %-15s\n",
+                       vehicleInfo, customerName, customerPhone, serviceType, status, date);
+                recordCount++;
+            }
+        }
+        fclose(vehicleDb);
+        
+        if (recordCount == 0) {
+            printf(YELLOW "No repair history found.\n" RESET);
+        } else {
+            printf(GREEN "\nTotal records: %d\n" RESET, recordCount);
+        }
+    }
 
     clearInputBuffer();
     printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
-    adminDashboard();
+    
+    switch(callerDashboard) {
+        case ADMIN_DASHBOARD:
+            adminDashboard();
+            break;
+        case TECHNICIAN_DASHBOARD:
+            technicianDashboard();
+            break;
+        case CS_AGENT_DASHBOARD:
+            customerServiceAgentDashboard();
+            break;
+        default:
+            mainMenu();
+            break;
+    }
 }
 
 void updateCarRepairStatus(void) {
@@ -893,10 +1009,10 @@ void viewServiceRequests(void) {
 
 
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    printf("\nPress " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
-    adminDashboard();
+    technicianDashboard();
 }
 
 void logVehicle(void) {
@@ -905,12 +1021,91 @@ void logVehicle(void) {
     printf(BRIGHT_BLUE "| Log Vehicle |\n" RESET);
     printf(BRIGHT_BLUE "+-------------+\n" RESET);
 
+    VehicleRecord record; memset(&record, 0, sizeof(record));
+
+    printf(YELLOW "License Plate: " RESET);
+    clearInputBuffer();
+    fgets(record.licensePlate, sizeof(record.licensePlate), stdin);
+    record.licensePlate[strcspn(record.licensePlate, "\n")] = '\0';
+
+    VehicleRecord previous;
+    int hasPrevious = findLatestVehicleRecordByPlate(record.licensePlate, &previous);
+
+    if (hasPrevious) {
+        strcpy(record.vehicleMake, previous.vehicleMake);
+        strcpy(record.vehicleModel, previous.vehicleModel);
+        strcpy(record.vehicleYear, previous.vehicleYear);
+        strcpy(record.vehicleColor, previous.vehicleColor);
+        strcpy(record.mileage, previous.mileage);
+        strcpy(record.customerName, previous.customerName);
+        strcpy(record.customerPhone, previous.customerPhone);
+        printf(GREEN "\nPrevious record found for this license plate.\n" RESET);
+        printf(CYAN "Make/Model: %s %s | Year: %s | Color: %s | Mileage(last): %s\n" RESET,
+               record.vehicleMake, record.vehicleModel, record.vehicleYear, record.vehicleColor, record.mileage);
+        printf(CYAN "Customer: %s | Phone: %s\n" RESET, record.customerName, record.customerPhone);
+        printf(YELLOW "Reuse previous details? (Y/n): " RESET);
+        char ans[8]; fgets(ans, sizeof(ans), stdin);
+        if (ans[0] == 'n' || ans[0] == 'N') {
+            hasPrevious = 0;
+        }
+    }
+
+    if (!hasPrevious) {
+        printf(YELLOW "Vehicle Make: " RESET); fgets(record.vehicleMake, sizeof(record.vehicleMake), stdin); record.vehicleMake[strcspn(record.vehicleMake, "\n")] = '\0';
+        printf(YELLOW "Vehicle Model: " RESET); fgets(record.vehicleModel, sizeof(record.vehicleModel), stdin); record.vehicleModel[strcspn(record.vehicleModel, "\n")] = '\0';
+        printf(YELLOW "Vehicle Year: " RESET); fgets(record.vehicleYear, sizeof(record.vehicleYear), stdin); record.vehicleYear[strcspn(record.vehicleYear, "\n")] = '\0';
+        printf(YELLOW "Vehicle Color: " RESET); fgets(record.vehicleColor, sizeof(record.vehicleColor), stdin); record.vehicleColor[strcspn(record.vehicleColor, "\n")] = '\0';
+        printf(YELLOW "Mileage: " RESET); fgets(record.mileage, sizeof(record.mileage), stdin); record.mileage[strcspn(record.mileage, "\n")] = '\0';
+
+        printf(YELLOW "Customer Name: " RESET); fgets(record.customerName, sizeof(record.customerName), stdin); record.customerName[strcspn(record.customerName, "\n")] = '\0';
+        printf(YELLOW "Customer Phone: " RESET); fgets(record.customerPhone, sizeof(record.customerPhone), stdin); record.customerPhone[strcspn(record.customerPhone, "\n")] = '\0';
+    } else {
+        printf(YELLOW "Update mileage (leave blank to keep %s): " RESET, record.mileage);
+        char buf[32]; fgets(buf, sizeof(buf), stdin);
+        if (buf[0] != '\n') { buf[strcspn(buf, "\n")] = '\0'; strncpy(record.mileage, buf, sizeof(record.mileage)); }
+    }
+
+    printf(YELLOW "Service Type (e.g., Oil Change, Brake Repair, Engine Check): " RESET);
+    fgets(record.serviceType, sizeof(record.serviceType), stdin); record.serviceType[strcspn(record.serviceType, "\n")] = '\0';
+    printf(YELLOW "Problem Description: " RESET);
+    fgets(record.problemDescription, sizeof(record.problemDescription), stdin); record.problemDescription[strcspn(record.problemDescription, "\n")] = '\0';
+    printf(YELLOW "Urgency Level (Low/Medium/High/Emergency): " RESET);
+    fgets(record.urgencyLevel, sizeof(record.urgencyLevel), stdin); record.urgencyLevel[strcspn(record.urgencyLevel, "\n")] = '\0';
+
+    strcpy(record.status, "Pending");
+    strncpy(record.timestamp, getEventTime(), sizeof(record.timestamp));
+    record.timestamp[sizeof(record.timestamp)-1] = '\0';
+
+    FILE *fp = fopen("vehicles.dat", "ab");
+    if (!fp) {
+        printf(RED "Failed to open vehicle database file." RESET "\n");
+    } else {
+        fwrite(&record, sizeof(VehicleRecord), 1, fp);
+        fclose(fp);
+        printf(GREEN "\nVehicle logged successfully!\n" RESET);
+        printf(CYAN "Status: %s\n" RESET, record.status);
+        printf(CYAN "(Stored in binary DB: %s)\n" RESET, "vehicles.dat");
+    }
 
     clearInputBuffer();
-    printf("Press " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
+    printf("\nPress " YELLOW "Enter" RESET " to return to the dashboard." HIDE_CURSOR);
     getchar();
     SET_STATE(SHOW_CURSOR);
     customerServiceAgentDashboard();
+}
+
+int findLatestVehicleRecordByPlate(const char *plate, VehicleRecord *outRecord) {
+    FILE *fp = fopen("vehicles.dat", "rb");
+    if (!fp) return 0;
+    VehicleRecord temp; int found = 0;
+    while (fread(&temp, sizeof(VehicleRecord), 1, fp) == 1) {
+        if (strcmp(temp.licensePlate, plate) == 0) {
+            *outRecord = temp; 
+            found = 1;
+        }
+    }
+    fclose(fp);
+    return found;
 }
 
 void generateBill(void) {
