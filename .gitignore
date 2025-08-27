@@ -11,9 +11,14 @@
 *.ico
 *.rc
 
+# Markdown files
+*.md
+
 # Database files
 *.csv
 *.pwd
+*.dat
+*.txt
 
 
 # Linker output
