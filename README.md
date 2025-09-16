@@ -6,6 +6,10 @@
 
 A standalone console-based **garage service management system** written in C. It helps garage owners manage customer data, services, invoices, and more — all from a lightweight, terminal interface.
 
+<p align="center">
+  <img src="assets/cgarage-windows-screenshot.png" alt="cGarage Windows Screenshot" width="800"/>
+</p>
+
 ---
 
 ## 📦 Features
