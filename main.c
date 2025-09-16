@@ -1177,10 +1177,10 @@ void updateCarRepairStatus(int callerDashboard) {
     displayVehicleForUpdate(selected, choice - 1);
 
     printf(YELLOW "\nAvailable status options:\n" RESET);
-    printf(GREEN "[1]" RESET " Pending\n");
-    printf(GREEN "[2]" RESET " In Progress\n");
-    printf(GREEN "[3]" RESET " Completed\n");
-    printf(GREEN "[4]" RESET " On Hold\n");
+    printf(GREEN "[" YELLOW "1" GREEN "] Pending\n" RESET);
+    printf(GREEN "[" YELLOW "2" GREEN "] In Progress\n" RESET);
+    printf(GREEN "[" YELLOW "3" GREEN "] Completed\n" RESET);
+    printf(GREEN "[" YELLOW "4" GREEN "] On Hold\n" RESET);
     printf(YELLOW "Enter new status (1-4): " RESET);
     
     int statusChoice;
