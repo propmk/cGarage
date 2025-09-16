@@ -1,4 +1,4 @@
-# cGarage 🚗🔧
+# cGarage
 
 <p align="center">
   <img src="assets/cgarage.png" alt="cGarage Logo" width="150"/>
