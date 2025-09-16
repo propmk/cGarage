@@ -7,10 +7,6 @@
 *.obj
 *.elf
 
-# Resource files
-*.ico
-*.rc
-
 # Markdown files
 *.md
 
