@@ -65,7 +65,7 @@ typedef struct {
 typedef struct {
     char vehicleMake[50];
     char vehicleModel[50];
-    char vehicleYear[5];
+    char vehicleYear[20];
     char licensePlate[20];
     char vehicleColor[30];
     char mileage[15];
