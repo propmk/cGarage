@@ -4,6 +4,19 @@
   <img src="assets/cgarage.png" alt="cGarage Logo" width="150"/>
 </p>
 
+
+<div align="center">
+  <img src="https://img.shields.io/github/license/propmk/cgarage" alt="License" />
+  <img src="https://img.shields.io/github/stars/propmk/cgarage" alt="Stars" />
+  <img src="https://img.shields.io/github/forks/propmk/cgarage" alt="Forks" />
+  <img src="https://img.shields.io/github/watchers/propmk/cgarage" alt="Watchers" />
+  <img src="https://img.shields.io/github/repo-size/propmk/cgarage" alt="Repo Size" />
+  <img src="https://img.shields.io/github/languages/count/propmk/cgarage" alt="Language Count" />
+  <img src="https://img.shields.io/github/languages/top/propmk/cgarage" alt="Top Language" />
+</div>
+<br>
+
+
 A standalone console-based **garage service management system** written in C. It helps garage owners manage customer data, services, invoices, and more — all from a lightweight, terminal interface.
 
 
